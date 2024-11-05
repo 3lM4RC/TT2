@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 # Cargar la imagen desde la ubicación especificada
-file_path = "TT2/Lagos1.jpg"
+file_path = "pincel2/Lagos1.jpg"
 img = cv2.imread(file_path)
 if img is None:
     print("Error: No se pudo cargar la imagen. Asegúrate de que el archivo exista en la ruta especificada.")
@@ -38,7 +38,7 @@ button_reset = (10, 20, 140, 60)  # Coordenadas del botón de reinicio
 button_select_color = (10, 80, 140, 120)
 button_close = (10, 140, 140, 180)
 button_erase = (10, 200, 140, 240)  # Botón de borrado
-color_buttons = {color: (10, 260 + i * 40, 140, 300 + i * 40) for i, color in enumerate(colors)}  # Coordenadas de la paleta
+color_buttons = {color: (10, 260 + i * 30, 40, 290 + i * 30) for i, color in enumerate(colors)}  # Coordenadas de la paleta
 
 # Variable global para almacenar la última posición del mouse
 last_point = None
@@ -125,7 +125,7 @@ def draw_buttons(panel):
     for i, (color_name, color_rgb) in enumerate(colors.items()):
         color_coords = color_buttons[color_name]
         cv2.rectangle(panel, (color_coords[0], color_coords[1]), (color_coords[2], color_coords[3]), color_rgb, -1)
-        cv2.putText(panel, color_name, (color_coords[0] + 10, color_coords[1] + 25), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255) if np.mean(color_rgb) < 128 else (0, 0, 0), 1)
+        #cv2.putText(panel, color_name, (color_coords[0] + 10, color_coords[1] + 25), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255) if np.mean(color_rgb) < 128 else (0, 0, 0), 1)
 
 # Configurar el callback del mouse en la imagen
 cv2.namedWindow("Paint Tool")
@@ -144,8 +144,8 @@ while True:
     if key == ord('s'):
         # Crear la imagen binarizada a partir de la máscara
         binary_img = np.zeros_like(img)
-        binary_img[mask != 0] = (0, 0, 255)
-        cv2.imwrite("image_masked.png", binary_img)
+        binary_img[mask != 0] = (255, 255, 255)
+        cv2.imwrite("pincel2/image_masked.png", binary_img)
         print("Imagen binarizada guardada como 'image_masked.png'.")
     elif key == 27:  # Esc para salir
         break
